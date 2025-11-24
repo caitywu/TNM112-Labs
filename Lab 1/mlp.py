@@ -4,7 +4,6 @@ import data_generator
 # Different activations functions
 def activation(x, activation):
     
-    #TODO: specify the different activation functions
     # 'activation' could be: 'linear', 'relu', 'sigmoid', or 'softmax'
     if activation == 'linear':
         return x
@@ -36,14 +35,12 @@ class MLP:
         activation='linear'  # Activation function of layers
     ):
         self.activation = activation
-
-        # TODO: specify the number of hidden layers based on the length of the provided lists
         self.hidden_layers = len(W)-1
 
         self.W = W
         self.b = b
 
-        # TODO: specify the total number of weights in the model (both weight matrices and bias vectors)
+        #specify the total number of weights in the model (both weight matrices and bias vectors)
         self.N = sum(Wi.size for Wi in W) + sum(bi.size for bi in b)
 
         print('Number of hidden layers: ', self.hidden_layers)
@@ -87,10 +84,8 @@ class MLP:
     def evaluate(self):
         print('Model performance:')
 
-        # TODO: formulate the training loss and accuracy of the MLP
         # Assume the mean squared error loss
         # Hint: For calculating accuracy, use np.argmax to get predicted class
-
         out_train = self.feedforward(self.dataset.x_train)
         out_test = self.feedforward(self.dataset.x_test)
 
