@@ -55,31 +55,33 @@ class MLP:
         x      # Input data points
     ):
         # TODO: specify a matrix for storing output values
-        y = []
+        y = np.zeros((len(x), self.dataset.K))
 
         # TODO: implement the feed-forward layer operations
+        a = 0
 
         # 1. Specify a loop over all the datapoints
-        for x_i in x:
+        for i, x_i in enumerate(x):
 
             # 2. Specify the input layer (2x1 matrix)
-            a = x_i.reshape(2,1)
+            a = np.reshape(x_i,(2,1))
 
             # 3. For each hidden layer, perform the MLP operations
             for layer in range(self.hidden_layers):
+
                 #    - multiply weight matrix and output from previous layer
                 #    - add bias vector
-                z = np.dot(self.W[layer], a) + self.b[layer]
+                a = np.dot(self.W[layer], a) + self.b[layer]
 
                 #    - apply activation function
-                a = activation(z, self.activation)
+                a = activation(a, self.activation)
 
             # 4. Specify the final layer, with 'softmax' activation
-            z_out = np.dot(self.W[-1], a) + self.b[-1]
-            a_out = activation(z_out, 'softmax')
-            y.append(a_out)
+            a = np.dot(self.W[-1], a) + self.b[-1]
+            a = activation(a, 'softmax')
+            y[i] = a.flatten()
             
-        return np.hstack(y).T
+        return y
 
     # Measure performance of model
     def evaluate(self):
